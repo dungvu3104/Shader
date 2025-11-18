@@ -60,7 +60,9 @@ Shader "Custom/CartoonWater"
             fixed4 frag (v2f i) : SV_Target
             {
                 // distort the UVs
-                i.uv.x~* _AnimTiling + _Time.y * _AnimSpeedY) * _AnimScale;
+                i.uv.x += sin((i.uv.x + i.uv.y) * _AnimTiling + _Time.y * _AnimSpeedX) * _AnimScale;
+                i.uv.y += cos((i.uv.x - i.uv.y) * _AnimTiling + _Time.y * _AnimSpeedY) * _AnimScale;
+
 
                 // sample the texture
                 fixed4 col = tex2D(_MainTex, i.uv);
